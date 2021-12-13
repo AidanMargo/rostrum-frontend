@@ -51,9 +51,9 @@ function Login() {
     })
     .then(resp => {
         resp.json()
-        // if (resp.ok) {
-        //   navigate('/home')
-        // }
+        if (resp.ok) {
+          navigate('/home')
+        }
       })
    
       

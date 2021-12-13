@@ -7,8 +7,12 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import {createTheme, ThemeProvider} from '@mui/material/styles'
+import {useSelector, useDispatch} from 'react-redux'
+import {isLogged} from '../actions'
 
 function Navbar() {
+  const loggedIn = useSelector(state => state.isLogged)
+  const dispatch = useDispatch()
 
   const theme = createTheme({
     palette: {
@@ -32,6 +36,7 @@ function Navbar() {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2 }}
+              onClick={() => dispatch(isLogged())}
             >
               <MenuIcon />
             </IconButton>

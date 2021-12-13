@@ -22,7 +22,8 @@ export default function SignUp () {
   const [signUpData, setSignUpData] = useState({
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    profile_pic: 'https://t4.ftcdn.net/jpg/00/64/67/63/360_F_64676383_LdbmhiNM6Ypzb3FM4PPuFP9rHe7ri8Ju.jpg'
   })
 
   // Handler Functions
@@ -33,7 +34,7 @@ export default function SignUp () {
   }
 
   const handleStudentSignUp = (e, SignUpData) => {
-    const {email, password, password_confirmation} = SignUpData
+    const {email, password, password_confirmation, profile_pic} = SignUpData
     e.preventDefault()   
 
     fetch('/api/students', {
@@ -46,22 +47,23 @@ export default function SignUp () {
       body: JSON.stringify({
         email,
         password,
-        password_confirmation
+        password_confirmation,
+        profile_pic
       })
     })
     .then(resp => {
         resp.json()
-        // if (resp.ok) {
-        //   navigate('/info')
-        // } else {
-        //   alert('Nope')
-        // }
+        if (resp.ok) {
+          navigate('/info')
+        } else {
+          alert('Nope')
+        }
       })
   }
 
 
   const handleTeacherSignUp = (e, SignUpData) => {
-    const {email, password, password_confirmation} = SignUpData
+    const {email, password, password_confirmation, profile_pic} = SignUpData
     e.preventDefault()   
 
     fetch('/api/teachers', {
@@ -73,19 +75,21 @@ export default function SignUp () {
       body: JSON.stringify({
         email,
         password,
-        password_confirmation
+        password_confirmation,
+        profile_pic,
+        type: 'teacher'
       })
     })
     .then(resp => {
         resp.json()
-      
+        if (resp.ok) {
+          navigate('/info')
+        } else {
+          alert('Nope')
+        }
       })
   }
-  // if (resp.ok) {
-        //   navigate('/info')
-        // } else {
-        //   alert('Nope')
-        // }
+  
 
   return (
     <div>
@@ -159,6 +163,7 @@ export default function SignUp () {
           </Box>
         </Grid>
 
+        {/* Teacher sign-up form */}
         <Grid item xs={12} lg={6} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -182,7 +187,7 @@ export default function SignUp () {
                 fullWidth
                 id="email"
                 label="Email Address"
-                name="studentEmail"
+                name="email"
                 autoComplete="email"
                 onChange={(e) => handleData(e)}
                 autoFocus
@@ -191,7 +196,7 @@ export default function SignUp () {
                 margin="normal"
                 required
                 fullWidth
-                name="studentPassword"
+                name="password"
                 label="Password"
                 type="password"
                 id="password"
@@ -202,7 +207,7 @@ export default function SignUp () {
                 margin="normal"
                 required
                 fullWidth
-                name="studnepassword_confirmation"
+                name="password_confirmation"
                 label="Re-enter Password"
                 type="password"
                 id="password"
