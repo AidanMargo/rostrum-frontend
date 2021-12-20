@@ -5,30 +5,36 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import {useNavigate} from 'react-router-dom'
 import {useState} from 'react'
+import { DirectUpload } from 'activestorage'
 
 
-export default function UserInfo({user}) {
+export default function UserInfo({user, setUserAvatar}) {
 
   const navigate = useNavigate()
 
   const [profileData, setProfileData] = useState({
     first_name: '',
     last_name: '',
-    profile_pic: null,
     address: '',
-    phone_number: ''
+    phone_number: '',
+    avatar: {}
   })
 
   const handleData = (e) => {
-    setProfileData({...profileData, [e.target.name]: e.target.value})
+    if(e.target.name === 'avatar'){
+      console.log(e.target.files[0])
+      setProfileData({...profileData, [e.target.name]:e.target.files[0]})
+    }else{
+    setProfileData({...profileData, [e.target.name]:e.target.value})
+    }
   }
 
+const uploadFile = () => {}
 
   const updateProfile = (e, profileData) => {
-    const {first_name, last_name, profile_pic, address, phone_number} = profileData
+    const {first_name, last_name, avatar, address, phone_number} = profileData
     e.preventDefault()
 
-    if(user.type === 'teacher'){
       fetch('/api/teachers/:id', {
         method: 'PATCH',
         headers: {
@@ -37,45 +43,21 @@ export default function UserInfo({user}) {
         body: JSON.stringify({
           first_name,
           last_name,
-          profile_pic,
           address,
-          phone_number
+          phone_number,
+          avatar
         })
       })
-      .then(resp => {
-        resp.json()
-        if(resp.ok){
-          navigate('/home')
-        } else {
-          alert('Cannot navigate to Home')
-        }
+      .then(resp => resp.json())
+      .then(data => {
+        console.log(data)
+        uploadFile(data.avatar, data)
       })
-    } else {
-      fetch('/api/students/:id', {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json'
-        }, 
-        body: JSON.stringify({
-          first_name,
-          last_name,
-          profile_pic,
-          address,
-          phone_number
-        })
-      })
-      .then(resp => {
-        resp.json()
-        if(resp.ok){
-          navigate('/home')
-        } else {
-          alert('Cannot navigate to Home')
-        }
-      })
-    }
-    
+      
+
   }
 
+  
   
   return (
   
@@ -93,13 +75,15 @@ export default function UserInfo({user}) {
              {user ? `Welcome to Rostrum, {user.email}` : 'Welcome to Rostrum!'}
             </Typography>
             <Box component="form" noValidate onSubmit={(e) => updateProfile(e, profileData)} sx={{ mt: 1 }}>
-            {user ? <img src={user.profile_pic} /> : null}
-            <input
-              accept="image/*"
-              // style={{ display: 'none' }}
-              id="raised-button-file"
-              type="file"
-            />
+            {user ? <img alt='profile' src={user.profile_pic} /> : null}
+            <input type="file"
+               margin="normal"
+               accept="image/*"
+               name="avatar"
+               label='Image'
+               fullWidth
+               onChange={(e) => handleData(e)}
+               />
               <TextField
                 margin="normal"
                 required

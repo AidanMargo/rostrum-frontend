@@ -1,0 +1,11 @@
+.search {
+  text-align: right;
+  margin: 1rem;
+}
+
+.search > input {
+  text-align: right;
+  padding: 1rem;
+  margin: 1rem 4rem;
+  font-size: 1.5rem;
+}

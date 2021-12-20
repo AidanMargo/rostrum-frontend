@@ -1,0 +1,13 @@
+.student-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.action-btns {
+  width: 50%;
+  display: flex;
+  justify-content: space-evenly;
+  margin-left: 50%;
+}
+

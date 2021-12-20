@@ -1,0 +1,26 @@
+.student-container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin: 1rem auto;
+  width: 90%;
+  height: 35rem;
+  background-color: rgb(245, 245, 245);
+  overflow-y: auto;
+  box-shadow: 2px 2px 2px rgb(133, 133, 133);
+  border-radius: 10px;
+  align-items: center;
+}
+
+.student-container::-webkit-scrollbar {
+  display: none;
+}
+
+.search-container {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.search-container > button {
+  height: 3rem;
+}

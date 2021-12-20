@@ -1,8 +1,26 @@
-function Home () {
+import '../componentStyles/homeStyles.css'
+import Grid from '@mui/material/Grid'
+import Card from '@mui/material/Card'
+import Typography from '@mui/material/Typography'
+
+function Home ({user}) {
+
+
   return (
-    <div>
-      <h1>Welcome!</h1>
-    </div>
+    <>
+    { user && 
+    <>
+    <Grid container>
+      <Grid item>
+      <Card />  
+      </Grid>
+
+
+    </Grid>
+    
+    </>
+    }
+    </>
   )
 }
 

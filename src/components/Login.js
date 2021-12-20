@@ -12,11 +12,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 
-
-function Login() {
+export default function Login ({user}) {
 
   // States
   const [loginData, setLoginData] = useState({
@@ -35,11 +33,13 @@ function Login() {
 
   const navigate = useNavigate()
 
-  const handleLogin = (e, loginData) => {
+
+  
+  const handleTeacherLogin = (e, loginData) => {
     const {email, password} = loginData
     e.preventDefault()   
 
-    fetch('/api/studentlogin', {
+    fetch('/api/teacherlogin', {
       
       method: 'POST',
       headers: {
@@ -53,6 +53,7 @@ function Login() {
     })
     .then(resp => {
         resp.json()
+        console.log(resp)
         if (resp.ok) {
           navigate('/home')
         }
@@ -65,21 +66,6 @@ function Login() {
     <div>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
-        <Grid
-          item
-          xs={false}
-          sm={4}
-          md={7}
-          lg={9}
-          sx={{
-            backgroundImage: 'url(https://images.unsplash.com/photo-1526142684086-7ebd69df27a5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)',
-            backgroundRepeat: 'no-repeat',
-            backgroundColor: (t) =>
-              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
-            backgroundSize: 'cover',
-            backgroundPosition: 'center',
-          }}
-        />
         <Grid item xs={12} sm={8} md={5} lg={3} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -94,9 +80,9 @@ function Login() {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign in as a student
+              Sign in 
             </Typography>
-            <Box component="form" noValidate onSubmit={(e) => handleLogin(e, loginData)} sx={{ mt: 1 }}>
+            <Box component="form" noValidate onSubmit={(e) => handleTeacherLogin(e, loginData)} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
                 required
@@ -129,8 +115,8 @@ function Login() {
               </Button>
               <Grid container>
                 <Grid item xs>
-                <Link href="teacherlogin" variant="body1">
-                    {"Log in as a Teacher"}
+                <Link href="login" variant="body1">
+                    {"Log in as a student"}
                   </Link>
                 </Grid>
                 <Grid item>
@@ -142,9 +128,23 @@ function Login() {
             </Box>
           </Box>
         </Grid>
+        <Grid
+          item
+          xs={false}
+          sm={4}
+          md={7}
+          lg={9}
+          sx={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1593697972679-c4041d132a46?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
       </Grid>
     </div>
+
   )
 }
-
-export default Login
