@@ -17,7 +17,14 @@ function Navbar({logout, user, }) {
     palette: {
       info: {
        main: '#373737',
-      },
+      }
+    },
+    typography: {
+      h5: {
+        color: '#ED438A',
+        fontWeight: 600,
+        fontSize: '2rem'
+      }
     }
   });
 
@@ -32,9 +39,9 @@ function Navbar({logout, user, }) {
   }
   return (
     
-    <>
+    <div className='navbar'>
     
-    <div id="mySidepanel" class="sidepanel">
+    <div id="mySidepanel" className="sidepanel">
       <a href="javascript:void(0)" class="closebtn" onClick={() => closeMenu()}>&times;</a>
       <a href="/home">My Dashboard</a>
       <a href="/students">Students</a>
@@ -60,17 +67,17 @@ function Navbar({logout, user, }) {
             <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
               Rostrum
             </Typography>
-            { user ? null :
+            { user ? <Button href= '/'color="inherit" onClick={() => logout()}>Logout</Button> :
             <>
               <Button href='login' color="inherit">Login</Button> 
               <Button href= 'signUp'color="inherit">Sign Up</Button>
             </> }
-            <Button href= '/'color="inherit" onClick={() => logout()}>Logout</Button> 
+             
           </Toolbar>
         </AppBar>
       </Box>
     </ThemeProvider>
-    </>
+    </div>
   )
 }
 

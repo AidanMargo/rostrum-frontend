@@ -53,7 +53,6 @@ export default function Login ({user}) {
     })
     .then(resp => {
         resp.json()
-        console.log(resp)
         if (resp.ok) {
           navigate('/home')
         }

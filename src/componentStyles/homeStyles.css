@@ -1,0 +1,27 @@
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: 5% 1fr 2fr 1fr 5%;
+  grid-template-rows: 1fr 1fr;
+  margin-top: 2rem;
+  grid-gap: 1rem;
+}
+
+.todo-container {
+  grid-column: 2/3;
+  height: 100%;
+  overflow-y: auto;
+  background-color: rgb(254 249 255);
+  box-shadow: 2px 2px 2px rgb(133, 133, 133);
+  border-radius: 10px;
+}
+
+.stats-container {
+  grid-column: 2/3;
+  background-color: rgb(254 249 255);
+  box-shadow: 2px 2px 2px rgb(133, 133, 133);
+  border-radius: 10px;
+}
+.map {
+  grid-column: 3/5;
+  grid-row: 1/3;
+}

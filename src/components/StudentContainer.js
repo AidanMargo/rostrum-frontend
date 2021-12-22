@@ -5,12 +5,14 @@ import Modal from '@mui/material/Modal'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import '../componentStyles/studentContainerStyles.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-export default function StudentContainer({user, students, setStudents}) {
+export default function StudentContainer({user}) {
 
   const navigate = useNavigate()
+  const [render, setRender] = useState(false)
+  const [students, setStudents] = useState([])
   const [open, setOpen] = useState(false);
   const [newStudentInfo, setNewStudentInfo] = useState({
     first_name: '',
@@ -20,6 +22,12 @@ export default function StudentContainer({user, students, setStudents}) {
     phone_number: '',
     notes: ''
   })
+
+  useEffect(() => {
+    fetch('/api/me')
+    .then(resp => resp.json())
+    .then(data => setStudents(data.user.students))
+  }, [render])
 
   // Modal Style
   const style = {
@@ -77,7 +85,8 @@ export default function StudentContainer({user, students, setStudents}) {
       })
     })
     .then(resp => resp.json())
-    .then(window.location.reload())    
+    .then(data => setStudents([...students, data]))
+    .then(() => setRender(!render))    
   }
 
   // Delete a student

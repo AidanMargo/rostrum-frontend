@@ -81,7 +81,20 @@ export default function SignUp () {
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
         {/* Teacher sign-up form */}
-        <Grid item xs={12} lg={6} component={Paper} elevation={6} square>
+        <Grid
+          item
+          xs={false}
+          lg={8}
+          sx={{
+            backgroundImage: 'url(https://images.unsplash.com/photo-1453906971074-ce568cccbc63?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80)',
+            backgroundRepeat: 'no-repeat',
+            backgroundColor: (t) =>
+              t.palette.mode === 'light' ? t.palette.grey[50] : t.palette.grey[900],
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+          }}
+        />
+        <Grid item xs={12} lg={4} component={Paper} elevation={6} square>
           <Box
             sx={{
               my: 8,
