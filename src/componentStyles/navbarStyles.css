@@ -1,7 +1,13 @@
+.navbar {
+  opacity: 0;
+}
+
+
 .navbar a {
   color: #FF6E5B;
   font-size: 1.1rem;
 }
+
 
 .sidepanel {
   display: flex;
@@ -9,7 +15,7 @@
   height: 100%; /* Specify a height */
   width: 0; /* 0 width - change this with JavaScript */
   position: fixed; /* Stay in place */
-  z-index: 1; /* Stay on top */
+  z-index: 5; /* Stay on top */
   top: 0;
   left: 0;
   background-color: #373737; /* Black*/

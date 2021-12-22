@@ -5,6 +5,7 @@ import Home from "./Home"
 import Navbar from './Navbar'
 import Landing from './Landing'
 import SignUp from './SignUp'
+import AptScheduler from './Scheduler';
 import { useEffect, useState } from "react";
 import StudentContainer from './StudentContainer';
 
@@ -44,6 +45,7 @@ function App() {
               <Route path='/login' element={<Login user={user}/>} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/home' element={<Home user={user} />} />
+              <Route path='/appointments' element={<AptScheduler />} />
               <Route path='/students' element={<StudentContainer user={user} setUser={setUser} />} />
           </Routes> 
       </div>
