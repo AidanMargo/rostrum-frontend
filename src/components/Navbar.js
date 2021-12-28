@@ -18,7 +18,7 @@ function Navbar({logout, user}) {
 
 
   useEffect(() => {
-    gsap.to(navRef.current, 1.5, {opacity: '1', ease: 'Power2.easeInOut'})
+    gsap.to(navRef.current, 1, {opacity: '1', ease: 'Power2.easeInOut'})
   })
 
 
@@ -56,7 +56,6 @@ function Navbar({logout, user}) {
         <a href="/home">My Dashboard</a>
         <a href="/students">Students</a>
         <a href="/appointments">Appointments</a>
-        <a href="/music">Sheet Music</a>
       </div>
 
       <ThemeProvider theme={theme}>
@@ -77,7 +76,7 @@ function Navbar({logout, user}) {
               <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
                 Rostrum
               </Typography>
-              { user ? <Button href= '/'color="inherit" onClick={() => logout()}>Logout</Button> :
+              { user ? <Button href= '/'color="inherit" onClick={(e) => logout(e)}>Logout</Button> :
               <>
                 <Button href='login' color="inherit">Login</Button> 
                 <Button href= 'signUp'color="inherit">Sign Up</Button>

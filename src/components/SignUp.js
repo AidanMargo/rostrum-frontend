@@ -12,7 +12,6 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
-import { DirectUpload } from 'activestorage'
 
 
 export default function SignUp () {
@@ -70,8 +69,13 @@ export default function SignUp () {
       },
       body: JSON.stringify(teacher)
     })
-    .then(resp => resp.json())
-    .then(data => console.log(data))
+    .then(resp => {
+      if(resp.ok){
+        resp.json()
+        navigate('/home')
+      }
+    })
+    
   }
   
 

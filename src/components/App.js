@@ -12,7 +12,6 @@ import StudentContainer from './StudentContainer';
 function App() {
   
   const [user, setUser] = useState(null)
-  
 
   useEffect(() => {
     fetch("/api/me").then((response) => {
@@ -27,13 +26,15 @@ function App() {
 
 
   const logout = (e) => {
+    e.preventDefault()
+
     fetch('/api/logout', {
       method: "DELETE",
       headers: {
         "Content-Type": 'application/json'
       }
     })
-    .then(setUser(null))
+    .then(() => setUser(null))
   }
 
   return (
@@ -45,7 +46,7 @@ function App() {
               <Route path='/login' element={<Login user={user}/>} />
               <Route path='/signup' element={<SignUp />} />
               <Route path='/home' element={<Home user={user} />} />
-              <Route path='/appointments' element={<AptScheduler />} />
+              <Route path='/appointments' element={<AptScheduler user={user}/>} />
               <Route path='/students' element={<StudentContainer user={user} setUser={setUser} />} />
           </Routes> 
       </div>

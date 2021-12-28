@@ -123,7 +123,7 @@ export default function StudentContainer({user}) {
                fullWidth
                onChange={(e) => handleNewStudentInfo(e)}
                value={newStudentInfo.age}/>
-              <TextField type="text"
+              <TextField type="email"
                margin="normal"
                name="email"
                label='Email'
@@ -146,7 +146,7 @@ export default function StudentContainer({user}) {
                value={newStudentInfo.notes}/>          
               
               <div className='action-btns'>
-                <Button variant="contained" onClick={(e) => createStudent(e, newStudentInfo )}>Save</Button>
+                <Button variant="contained" onClick={(e) => createStudent(e, newStudentInfo)}>Save</Button>
               </div>   
             </Box>
            </Modal>

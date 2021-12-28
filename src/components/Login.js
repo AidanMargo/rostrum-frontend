@@ -55,6 +55,7 @@ export default function Login ({user}) {
         resp.json()
         if (resp.ok) {
           navigate('/home')
+          window.location.reload()
         }
       })
   }

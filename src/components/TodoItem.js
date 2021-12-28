@@ -1,4 +1,4 @@
-export default function TodoItem ({todo:{content, id}, getTodos}) {
+export default function TodoItem ({todo:{content, id}, todos, setTodos, setEdited, edited}) {
 
   const deleteTodo = (e, id) => {
     e.preventDefault()
@@ -8,7 +8,12 @@ export default function TodoItem ({todo:{content, id}, getTodos}) {
       headers: {
         'Content-Type': 'application/json'
       }
-    }).then(() => getTodos()).then(window.location.reload())
+    })
+    .then(() => {
+      let newTodos = todos.filter(todo => todo.id !== id)
+      setTodos(newTodos)
+      setEdited(!edited)
+    })
   }
 
 

@@ -1,6 +1,7 @@
 .student-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr 1fr;
   margin: 1rem auto;
   width: 90%;
   height: 35rem;
