@@ -47,7 +47,7 @@ function Home ({user}) {
           <Todos user={user}/> 
       </div>
       <div className="map">
-          <MapContainer />
+          <MapContainer user={user}/>
       </div>
       <div className="stats-container">
         <h2>Total students: {studentCount}</h2>

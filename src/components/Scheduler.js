@@ -1,7 +1,4 @@
 import Paper from '@material-ui/core/Paper';
-import IconButton from '@material-ui/core/IconButton';
-import InfoIcon from '@material-ui/icons/Info';
-import { withStyles } from '@material-ui/core/styles';
 import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
 import {Scheduler, WeekView, Appointments, Toolbar, DateNavigator, TodayButton, AppointmentForm} from '@devexpress/dx-react-scheduler-material-ui';
 import {useState, useEffect} from 'react'

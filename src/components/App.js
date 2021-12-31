@@ -6,12 +6,14 @@ import Navbar from './Navbar'
 import Landing from './Landing'
 import SignUp from './SignUp'
 import AptScheduler from './Scheduler';
-import { useEffect, useState } from "react";
+import { useEffect, useState, useNavigate } from "react";
 import StudentContainer from './StudentContainer';
 
 function App() {
   
   const [user, setUser] = useState(null)
+  // const navigate = useNavigate()
+
 
   useEffect(() => {
     fetch("/api/me").then((response) => {
@@ -35,6 +37,7 @@ function App() {
       }
     })
     .then(() => setUser(null))
+    // .then(navigate('/'))
   }
 
   return (
