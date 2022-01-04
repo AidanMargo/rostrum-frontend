@@ -1,12 +1,22 @@
 import {Map, Marker, GoogleApiWrapper} from 'google-maps-react'
 import Geocode from 'react-geocode'
+import PlacesAutocomplete, {geocodeByAddress, getLatLng} from 'react-places-autocomplete'
 import {useState, useEffect} from 'react'
+import '../componentStyles/mapStyles.css'
 
 const MapContainer = ({user:{address}, google, locations=[]}) => {
-   
-  const [lat, setLat] = useState(5)
-  const [lng, setLng] = useState(5)
-  // Change user address to lat/long coordinates
+  
+  // State variables
+  const [location, setLocation] = useState('')
+  const [coordinates, setCoordinates] = useState({
+    lat: null,
+    lng: null
+  })
+  const [destinations, setDestinations] = useState([])
+  const [lat, setLat] = useState(null)
+  const [lng, setLng] = useState(null)
+
+  // Change user address to lat/long coordinates on load
   useEffect(() => {
       Geocode.setApiKey("AIzaSyAOM_osGewNehPiY35iiyWR8pkMW0qrE50");
         Geocode.setLanguage("en");
@@ -31,73 +41,63 @@ const MapContainer = ({user:{address}, google, locations=[]}) => {
   }
 
 
-  // This gets the location thats entered into the search bar and gets latitude and longitude
-// getGeocode = async function(location) {
-//   let address = location.address.split(" ").join("+")
-//   let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=AIzaSyAOM_osGewNehPiY35iiyWR8pkMW0qrE50`
-//   console.log(url)
-//   const response = await axios.get(url)
-//   const data = response.data.results[0]
-//   const coords = {
-//     name: data.formatted_address,
-//     location: {
-//       lat: data.geometry.location.lat,
-//       lng: data.geometry.location.lng
-//     }
-//   }
-//   return coords
-//  }
-
-  // This is the form for the search component
-{/* <form onSubmit={this.handleSubmit}>
-          <input type="text" name="address" onChange={this.inputChange} />
-          <input type="submit" value="Check Location" />
-        </form>
-handleSubmit = event => {
-      event.preventDefault();
-      // const navigate = useNavigate();
-
-      this.getGeocode(this.state.location).then(coords => {
-        // console.log(coords.location.lat)
-        
-        this.setState({
-          ...this.state,destinations: [...this.state.destinations, coords]
-       })}
-      ) */}
-
-
-
+  // Gets the location thats entered into the search bar and gets latitude and longitude, then sets state
+  const handleSelect = async (address) => {
+    const results = await geocodeByAddress(address);
+    const latLng = await getLatLng(results[0]);
+    setDestinations([...destinations, latLng])
+    setLocation(address);
+    setCoordinates(latLng);
+  }
+ 
   return (
    <>
-   {/* <button onClick={() => geocode(address)}>Geocode</button> */}
-     <Map
-          google={google}
-          containerStyle={{
-              // position: "static",
-              width: "100%",
-              height: "70vh"
-          }}
-          style={{
-              width: "50%",
-              height: "70vh"
-          }}
-          center={userCoords}
-          initialCenter={userCoords}
-          zoom={locations.length === 1 ? 18 : 13}
-          disableDefaultUI={true}
-      >
-        
-          <Marker position={userCoords}/>
 
+    <div className='autocomplete'>
+    <PlacesAutocomplete value={location} onChange={setLocation} onSelect={handleSelect}>
+      {({ getInputProps, suggestions, getSuggestionItemProps, loading }) => (
+        <div>
+          <input {...getInputProps({ placeholder: "Type address" })} />
 
-        </Map>
-        
-        </>
+          <div className='places'>
+            {loading ? <div>...loading</div> : null}
 
-  )
-}
+            {suggestions.map(suggestion => {
+              const style = {
+                backgroundColor: suggestion.active ? "#41b6e6" : "#fff",
+                opacity:  0.8
+              };
 
-// export default MapContainer
+              return (
+                <div {...getSuggestionItemProps(suggestion, { style })}>
+                  {suggestion.description}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      )}
+    </PlacesAutocomplete>
+  </div>
+  <div className="map">
+    <Map
+      google={google}
+      style={{
+          width: "70%",
+          height: "70vh"
+      }}
+      center={coordinates.lat && coordinates.lng ? coordinates : userCoords}
+      initialCenter={userCoords}
+      zoom={coordinates.lat && coordinates.lng ? 15 : 13}
+      disableDefaultUI={true}>
+      <Marker position={userCoords}/>
+
+        {destinations.map(destination => <Marker position={destination}/>)}
+
+      </Map>
+    </div>  
+  </>
+  )}
 
 export default GoogleApiWrapper({
   apiKey: 'AIzaSyA1DrpRSV5V-3Tq5WaVG777aVzkSDAAr7c'

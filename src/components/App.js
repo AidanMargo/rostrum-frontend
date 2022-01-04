@@ -26,7 +26,9 @@ function App() {
     })
   }, []);
 
+  
 
+  // Logout and delete user session
   const logout = (e) => {
     e.preventDefault()
 
@@ -36,8 +38,10 @@ function App() {
         "Content-Type": 'application/json'
       }
     })
-    .then(() => setUser(null))
-    // .then(navigate('/'))
+    .then(() => {
+      setUser(null)
+    })
+    
   }
 
   return (

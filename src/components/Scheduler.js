@@ -29,19 +29,6 @@ export default function AptScheduler ({user})  {
       )
   }, [])
 
-  const styles = theme => ({
-    button: {
-      color: theme.palette.background.default,
-      padding: 0,
-    },
-    text: {
-      paddingTop: theme.spacing(1),
-      overflow: 'hidden',
-      textOverflow: 'ellipsis',
-      whiteSpace: 'nowrap',
-    },
-  });
-
   // Commit a new appointment to backend
   const addAppointment = (data) => {
     const {id, teacher_id, startDate, endDate, allDay, notes, title} = data
@@ -83,7 +70,7 @@ export default function AptScheduler ({user})  {
     .then(resp => resp.json())
   }
 
-  // 
+  // Delete an appointment
   const deleteAppointment = (id) => {
     fetch(`/api/appointments/${id}`, {
       method: 'DELETE',

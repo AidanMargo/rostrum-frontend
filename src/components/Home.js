@@ -1,6 +1,6 @@
 import '../componentStyles/homeStyles.css'
 import Todos from './Todos'
-import MapContainer from './MapContainer'
+import GoogleApiWrapper from './MapContainer'
 import {useState, useEffect, useRef } from 'react'
 import {gsap} from 'gsap'
 function Home ({user}) {
@@ -43,15 +43,15 @@ function Home ({user}) {
     { user && 
 
     <div className="dashboard-grid" ref={dashboardRef}>
-      <div className="todo-container" >
-          <Todos user={user}/> 
-      </div>
-      <div className="map">
-          <MapContainer user={user}/>
-      </div>
       <div className="stats-container">
         <h2>Total students: {studentCount}</h2>
         <h2>Total appointments: {aptCount} </h2>
+      </div>
+      <div className="map">
+          <GoogleApiWrapper user={user}/>
+      </div>
+      <div className="todo-container" >
+          <Todos user={user}/> 
       </div>
     </div>
 

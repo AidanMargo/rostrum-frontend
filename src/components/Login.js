@@ -2,6 +2,7 @@ import {useState} from 'react'
 import {useNavigate} from 'react-router-dom'
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
 // import FormControlLabel from '@mui/material/FormControlLabel';
@@ -17,6 +18,7 @@ import Typography from '@mui/material/Typography';
 export default function Login ({user}) {
 
   // States
+  const [showAlert, setShowAlert] = useState(false)
   const [loginData, setLoginData] = useState({
     email: '',
     password: ''
@@ -29,12 +31,16 @@ export default function Login ({user}) {
     })
   }
 
-  // Login as teacher or student
-
+  // Navigate to new page
   const navigate = useNavigate()
 
-
+  const openAlert = () => {
+    setShowAlert(true)
+    setTimeout(() => setShowAlert(false), 7000)
+  }
   
+
+  // Login, or show alert
   const handleTeacherLogin = (e, loginData) => {
     const {email, password} = loginData
     e.preventDefault()   
@@ -56,6 +62,8 @@ export default function Login ({user}) {
         if (resp.ok) {
           navigate('/home')
           window.location.reload()
+        } else {
+          openAlert()
         }
       })
   }
@@ -113,20 +121,14 @@ export default function Login ({user}) {
               >
                 Sign In
               </Button>
-              <Grid container>
-                <Grid item xs>
-                <Link href="login" variant="body1">
-                    {"Log in as a student"}
-                  </Link>
-                </Grid>
                 <Grid item>
                   <Link href="signUp" variant="body1">
                     {"Don't have an account? Sign Up"}
                   </Link>
-                </Grid>
               </Grid>
             </Box>
           </Box>
+         {showAlert && <Alert severity="error">Invalid Username or Password.</Alert>} 
         </Grid>
         <Grid
           item

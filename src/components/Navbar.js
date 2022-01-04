@@ -7,6 +7,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
+import {pink} from '@mui/material/colors'
 import {createTheme, ThemeProvider} from '@mui/material/styles'
 import {useEffect, useRef} from 'react'
 import {gsap} from 'gsap'
@@ -26,8 +27,11 @@ function Navbar({logout, user}) {
   const theme = createTheme({
     palette: {
       info: {
-       main: '#373737',
-      }
+       main: pink[100],
+      },
+      alert: {
+        main: '#373737'
+      } 
     },
     typography: {
       h5: {
@@ -57,35 +61,36 @@ function Navbar({logout, user}) {
         <a href="/students">Students</a>
         <a href="/appointments">Appointments</a>
       </div>
-
+    <navbar>
       <ThemeProvider theme={theme}>
         <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" color={'info'}>
+          <AppBar position="static" color={'alert'}>
             <Toolbar>
               {user && <IconButton
                 size="large"
                 edge="start"
-                color="inherit"
+                color="info"
                 aria-label="menu"
                 className="menu-btn"
                 sx={{ mr: 2 }}
                 onClick={() => openMenu()}
               >
                 <MenuIcon /> 
-              </IconButton>}
-              <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-                Rostrum
-              </Typography>
-              { user ? <Button href= '/'color="inherit" onClick={(e) => logout(e)}>Logout</Button> :
-              <>
-                <Button href='login' color="inherit">Login</Button> 
-                <Button href= 'signUp'color="inherit">Sign Up</Button>
-              </> }
-              
-            </Toolbar>
-          </AppBar>
-        </Box>
-      </ThemeProvider>
+                </IconButton>}
+                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                  Rostrum
+                </Typography>
+                { user ? <Button href= '/'color="inherit" onClick={(e) => logout(e)}>Logout</Button> :
+                <>
+                  <Button href='login' color="inherit">Login</Button> 
+                  <Button href= 'signUp'color="inherit">Sign Up</Button>
+                </> }
+                
+              </Toolbar>
+            </AppBar>
+          </Box>
+        </ThemeProvider>
+      </navbar>
     </div>
   )
 }

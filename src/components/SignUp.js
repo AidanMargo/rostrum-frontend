@@ -112,7 +112,7 @@ export default function SignUp () {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign Up as a Teacher
+              Sign Up
             </Typography>
             <Box component="form" noValidate onSubmit={(e) => handleTeacherSignUp(e, signUpData)} sx={{ mt: 1 }}>
               <TextField
@@ -174,6 +174,10 @@ export default function SignUp () {
                 autoComplete="current-password"
                 onChange={(e) => handleData(e)}
               />
+              {signUpData.password.length > 0 && signUpData.password.length < 6 ? 
+              <Typography component='h5' variant='h5'>
+                Passwords must be at least 6 characters in length
+                </Typography> : null }
               <TextField
                 margin="normal"
                 required

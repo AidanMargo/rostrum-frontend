@@ -28,14 +28,17 @@ function Todos({user}) {
       })
     })
     .then(resp => resp.json())
-    .then(data => setTodos([...todos, data]))
-    .then(() => setEdited(!edited))
+    .then(data => {
+      setTodos([...todos, data])
+      setEdited(!edited)
+      setNewTodo('')
+    })
   }
 
   return (
     <div className="todo-list">
       
-        <form>
+        <form onSubmit={(e) => addTodo(e, newTodo)}>
           <input type="text" 
           required='required' 
           value={newTodo}

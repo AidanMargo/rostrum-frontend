@@ -1,0 +1,18 @@
+.autocomplete {
+  top: 3rem;
+  left: 40%;
+  z-index: 4;
+}
+
+.autocomplete input {
+  font-size: 1rem;
+  padding: 0.5rem;
+  width: 70%;
+}
+
+.places {
+  position: absolute;
+  z-index: 5;
+}
+
+
