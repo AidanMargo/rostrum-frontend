@@ -20,6 +20,7 @@ export default function AptScheduler ({user})  {
           id: appointment.id,
           startDate: appointment.startDate,
           endDate: appointment.endDate,
+          allDay: appointment.allDay,
           notes: appointment.notes,
           title: appointment.title
         }
