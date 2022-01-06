@@ -12,11 +12,11 @@ import {createTheme, ThemeProvider} from '@mui/material/styles'
 import {useEffect, useRef} from 'react'
 import {gsap} from 'gsap'
 
-function Navbar({logout, user}) {
+function Navbar({setUser, user}) {
 
 
   const navRef = useRef();
-
+  const navigate = useNavigate()
 
   useEffect(() => {
     gsap.to(navRef.current, 1, {opacity: '1', ease: 'Power2.easeInOut'})
@@ -43,6 +43,22 @@ function Navbar({logout, user}) {
   });
 
 
+   // Logout and delete user session
+   const logout = (e) => {
+    e.preventDefault()
+
+    fetch('/api/logout', {
+      method: "DELETE",
+      headers: {
+        "Content-Type": 'application/json'
+      }
+    })
+    .then(() => {
+      setUser(null)
+      navigate('/')
+    })
+    
+  }
   // Functions for opening/closing the side panel
   function openMenu() {
     document.getElementById("mySidepanel").style.width = "250px";

@@ -6,13 +6,12 @@ import Navbar from './Navbar'
 import Landing from './Landing'
 import SignUp from './SignUp'
 import AptScheduler from './Scheduler';
-import { useEffect, useState, useNavigate } from "react";
+import { useEffect, useState} from "react";
 import StudentContainer from './StudentContainer';
 
 function App() {
   
   const [user, setUser] = useState(null)
-  // const navigate = useNavigate()
 
 
   useEffect(() => {
@@ -28,26 +27,12 @@ function App() {
 
   
 
-  // Logout and delete user session
-  const logout = (e) => {
-    e.preventDefault()
-
-    fetch('/api/logout', {
-      method: "DELETE",
-      headers: {
-        "Content-Type": 'application/json'
-      }
-    })
-    .then(() => {
-      setUser(null)
-    })
-    
-  }
+ 
 
   return (
     <BrowserRouter>
       <div className="App">
-        <Navbar logout={logout} user={user}/>  
+        <Navbar setUser={setUser} user={user}/>  
           <Routes>
               <Route path='/' element={<Landing />} />
               <Route path='/login' element={<Login user={user}/>} />
