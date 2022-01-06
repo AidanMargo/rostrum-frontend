@@ -1,7 +1,8 @@
 import Paper from '@material-ui/core/Paper';
 import { ViewState, EditingState, IntegratedEditing} from '@devexpress/dx-react-scheduler';
-import {Scheduler, WeekView, Appointments, Toolbar, DateNavigator, TodayButton, AppointmentForm, AllDayPanel} from '@devexpress/dx-react-scheduler-material-ui';
+import {Scheduler, WeekView, Appointments, DateNavigator, TodayButton, AppointmentForm, AllDayPanel, EditRecurrenceMenu} from '@devexpress/dx-react-scheduler-material-ui';
 import {useState, useEffect} from 'react'
+import {Toolbar as SchedulerToolbar} from '@devexpress/dx-react-scheduler-material-ui'
 import '../componentStyles/homeStyles.css'
 
 
@@ -21,6 +22,7 @@ export default function AptScheduler ({user})  {
           startDate: appointment.startDate,
           endDate: appointment.endDate,
           allDay: appointment.allDay,
+          rRule: appointment.rRule,
           notes: appointment.notes,
           title: appointment.title
         }
@@ -32,7 +34,7 @@ export default function AptScheduler ({user})  {
 
   // Commit a new appointment to backend
   const addAppointment = (data) => {
-    const {id, teacher_id, startDate, endDate, allDay, notes, title} = data
+    const {id, teacher_id, startDate, endDate, allDay, notes, title, rRule} = data
     fetch('/api/appointments', {
       method: 'POST',
       headers: {
@@ -44,6 +46,7 @@ export default function AptScheduler ({user})  {
         startDate,
         endDate,
         allDay,
+        rRule,
         notes,
         title
       })
@@ -54,7 +57,7 @@ export default function AptScheduler ({user})  {
 
   // Update an appointment 
   const updateAppointment = (data, id) => {
-    const {startDate, endDate, allDay, notes, title} = data
+    const {startDate, endDate, allDay, notes, title, rRule} = data
     fetch(`/api/appointments/${id}`, {
       method: 'PATCH',
       headers: {
@@ -64,6 +67,7 @@ export default function AptScheduler ({user})  {
         startDate,
         endDate,
         allDay,
+        rRule,
         notes,
         title
       })
@@ -89,6 +93,8 @@ export default function AptScheduler ({user})  {
         const newAppointment = { ...added, teacher_id: user.id }
         data = [...data, newAppointment];
         addAppointment(newAppointment)
+        console.log('Added:' ,added)
+        console.log('Appointment: ' , newAppointment)
       }
       if (changed) {
         let changedApt = {}
@@ -124,13 +130,14 @@ export default function AptScheduler ({user})  {
         onCommitChanges={commitChanges}/>
         <IntegratedEditing />
         <WeekView
-          startDayHour={8}
+          startDayHour={7}
           endDayHour={19}
         />
-        <Toolbar />
+        <SchedulerToolbar />
         <DateNavigator />
         <TodayButton />
         <Appointments />
+        <EditRecurrenceMenu/>
         <AllDayPanel />
         <AppointmentForm />
       </Scheduler>
