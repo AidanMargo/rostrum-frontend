@@ -7,6 +7,6 @@
   background-color: rgb(228, 60, 88);
 }
 
-.autocomplete {
-  
+.signup-error {
+  color: red;
 }

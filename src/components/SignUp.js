@@ -73,6 +73,7 @@ export default function SignUp () {
       if(resp.ok){
         resp.json()
         navigate('/home')
+        window.location.reload()
       }
     })
     
@@ -175,9 +176,9 @@ export default function SignUp () {
                 onChange={(e) => handleData(e)}
               />
               {signUpData.password.length > 0 && signUpData.password.length < 6 ? 
-              <Typography component='h5' variant='h5'>
+              <h5 className="signup-error">
                 Passwords must be at least 6 characters in length
-                </Typography> : null }
+                </h5> : null }
               <TextField
                 margin="normal"
                 required
@@ -189,7 +190,8 @@ export default function SignUp () {
                 autoComplete="current-password"
                 onChange={(e) => handleData(e)}
               />
-
+              {signUpData.password !== signUpData.password_confirmation ? 
+              <h5 className="signup-error">Passwords must be the same</h5> : null }
               <Button
                 type="submit"
                 fullWidth
