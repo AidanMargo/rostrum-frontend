@@ -1,6 +1,6 @@
 import Paper from '@material-ui/core/Paper';
-import { ViewState, EditingState, IntegratedEditing } from '@devexpress/dx-react-scheduler';
-import {Scheduler, WeekView, Appointments, Toolbar, DateNavigator, TodayButton, AppointmentForm} from '@devexpress/dx-react-scheduler-material-ui';
+import { ViewState, EditingState, IntegratedEditing} from '@devexpress/dx-react-scheduler';
+import {Scheduler, WeekView, Appointments, Toolbar, DateNavigator, TodayButton, AppointmentForm, AllDayPanel} from '@devexpress/dx-react-scheduler-material-ui';
 import {useState, useEffect} from 'react'
 import '../componentStyles/homeStyles.css'
 
@@ -130,6 +130,7 @@ export default function AptScheduler ({user})  {
         <DateNavigator />
         <TodayButton />
         <Appointments />
+        <AllDayPanel />
         <AppointmentForm />
       </Scheduler>
     </Paper>
