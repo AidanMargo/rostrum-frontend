@@ -25,7 +25,6 @@ const MapContainer = ({user:{address}, google, locations=[]}) => {
 
       Geocode.fromAddress(address).then(
       (response) => {
-          console.log(response)
           const lt = response.results[0].geometry.location.lat;
           const lg = response.results[0].geometry.location.lng;
         setLat(lt)

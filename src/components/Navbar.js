@@ -36,13 +36,12 @@ function Navbar({setUser, user}) {
     typography: {
       h5: {
         color: '#ED438A',
-        fontWeight: 600,
         fontSize: '2rem'
       }
     }
   });
 
-
+  
    // Logout and delete user session
    const logout = (e) => {
     e.preventDefault()
@@ -79,10 +78,11 @@ function Navbar({setUser, user}) {
       </div>
     <navbar>
       <ThemeProvider theme={theme}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static" color={'alert'}>
-            <Toolbar>
-              {user && <IconButton
+        <Box sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+          <AppBar position="static" style={{ background: '#373737' }}>
+            <Toolbar >
+              {user && 
+              <IconButton
                 size="large"
                 edge="start"
                 color="info"
@@ -91,9 +91,9 @@ function Navbar({setUser, user}) {
                 sx={{ mr: 2 }}
                 onClick={() => openMenu()}
               >
-                <MenuIcon /> 
+                <MenuIcon sx={{color: '#f8bbd0'}}/> 
                 </IconButton>}
-                <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
+                <Typography  variant="h5" component="h5" sx={{ flexGrow: 1 }}>
                   Rostrum
                 </Typography>
                 { user ? <Button href= '/'color="inherit" onClick={(e) => logout(e)}>Logout</Button> :

@@ -85,9 +85,19 @@ export default function StudentContainer({user}) {
       })
     })
     .then(resp => resp.json())
-    .then(data => setStudents([...students, data]))
-    .then(() => setRender(!render))    
-  }
+    .then(data => {
+      setStudents([...students, data])
+      setRender(!render)
+      setNewStudentInfo({
+        first_name: '',
+        last_name: '',
+        age: null,
+        email: '',
+        phone_number: '',
+        notes: ''
+      })
+      handleClose()
+    })}
 
   // Delete a student
 

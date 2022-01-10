@@ -24,6 +24,7 @@ export default function StudentCard({student, student:{id, age, email, first_nam
   const [studentInfo, setStudentInfo] = useState({
     first_name: first_name,
     last_name: last_name,
+    age: age,
     email: email,
     phone_number: phone_number,
     notes: notes
@@ -65,7 +66,7 @@ export default function StudentCard({student, student:{id, age, email, first_nam
 
   // Update student information
   const updateStudent = (e, id, studentInfo) => {
-    const {email, phone_number, first_name, last_name, notes} = studentInfo
+    const {email, phone_number, first_name, last_name, notes, age} = studentInfo
     e.preventDefault()
 
     fetch(`/api/students/${id}`, {
@@ -76,6 +77,7 @@ export default function StudentCard({student, student:{id, age, email, first_nam
       body: JSON.stringify({
         first_name,
         last_name,
+        age,
         email,
         phone_number,
         notes
@@ -102,7 +104,7 @@ export default function StudentCard({student, student:{id, age, email, first_nam
       <Card sx={{ minWidth: 275 }}>
         <CardContent>
           <Typography variant="h5" component="div">
-            {first_name} {last_name}
+            {first_name} {last_name}, {age}
           </Typography>
           <Typography sx={{ mb: 1.5 }} color="text.secondary">
             
@@ -148,6 +150,14 @@ export default function StudentCard({student, student:{id, age, email, first_nam
                fullWidth
                onChange={(e) => handleStudentInfo(e)}
                value={studentInfo.last_name}/>
+              <TextField type="number"
+               min="1"
+               margin="normal"
+               name="age"
+               label='Age'
+               fullWidth
+               onChange={(e) => handleStudentInfo(e)}
+               value={studentInfo.age}/>
               <TextField type="text"
                margin="normal"
                name="email"
@@ -162,7 +172,8 @@ export default function StudentCard({student, student:{id, age, email, first_nam
                fullWidth
                onChange={(e) => handleStudentInfo(e)}
                value={studentInfo.phone_number}/>
-               <TextField type="textarea"
+               <TextField type="text"
+               multiline
                margin="normal"
                name="notes"
                label='Notes'

@@ -3,11 +3,16 @@ import Todos from './Todos'
 import GoogleApiWrapper from './MapContainer'
 import {useState, useEffect, useRef } from 'react'
 import {gsap} from 'gsap'
+
+
 function Home ({user}) {
 
+  // State variables and setting stat block
   const [studentCount, setStudentCount] = useState(null)
   const [aptCount, setAptCount] = useState(null)
   const dashboardRef = useRef()
+  const statRef = useRef()
+  const statRef2 = useRef()
 
   useEffect(() => {
     fetch("/api/me").then((response) => {
@@ -18,22 +23,14 @@ function Home ({user}) {
           setAptCount(data.lifetime_appointments)
         })
       }
-    })
+    })})
+  
 
-    // fetch('https://zenquotes.io/api/today/8830d7872da9c54f273ed6a1f1970caee6c892a0',{
-    //   method: 'GET',
-    //   moder: 'cors',
-    //   headers: {
-    //     'Access-Control-Allow-Origin': 'https://zenquotes.io/api/today/8830d7872da9c54f273ed6a1f1970caee6c892a0',
-    //     'Content-Type': 'application/json'
-    //   },
-    // })
-    // .then(resp => resp.json())
-    // .then(data => console.log(data))
-  }, []);
-
+    // Gsap Animations
   useEffect(() => {
     gsap.to(dashboardRef.current, 1.5,  {marginLeft: '0', ease:'Power2.easeInOut'})
+    gsap.to(statRef.current, 3, {opacity: '1', ease:'Power2.easeInOut' })
+    gsap.to(statRef2.current, 3, {opacity: '1', ease:'Power2.easeInOut' })
   })
 
   
@@ -44,8 +41,8 @@ function Home ({user}) {
 
     <div className="dashboard-grid" ref={dashboardRef}>
       <div className="stats-container">
-        <h2>Total students: {studentCount}</h2>
-        <h2>Total appointments: {aptCount} </h2>
+        <h2 className="stat" ref={statRef2}>Total students: {studentCount}</h2>
+        <h2 className="stat" ref={statRef}>Total appointments: {aptCount} </h2>
       </div>
       <div className="map">
           <GoogleApiWrapper user={user}/>
@@ -54,7 +51,6 @@ function Home ({user}) {
           <Todos user={user}/> 
       </div>
     </div>
-
     }
     </>
   )

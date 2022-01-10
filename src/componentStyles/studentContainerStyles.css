@@ -9,7 +9,7 @@
   overflow-y: auto;
   box-shadow: 2px 2px 2px rgb(133, 133, 133);
   border-radius: 10px;
-  align-items: center;
+  align-items: top;
 }
 
 .student-container::-webkit-scrollbar {
